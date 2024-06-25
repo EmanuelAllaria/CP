@@ -97,11 +97,14 @@
             <p><strong>#</strong>{{ $invoice['id'] }}</p>
             <p><strong>Cliente:</strong> {{ $invoice['client_name'] }}</p>
             <p><strong>Empresa:</strong> {{ $invoice['client_company'] }}</p>
+            @if (isset($invoice['due_date']))
             <p><strong>Fecha de Vencimiento:</strong> {{ date('d/m/Y', strtotime($invoice['due_date'])) }}</p>
+            @endif
             <p><strong>Total:</strong> ${{ number_format($invoice['amount'], 2, ',', '.') }}</p>
             <p><strong>Estado:</strong> <span class="status">{{ $invoice['status'] === 'paid' ? 'Pagado' : 'Falta Pagar'  }}</span></p>
         </div>
 
+        @if (isset($servicios_data[0]))
         <table>
             <thead>
                 <tr>
@@ -122,6 +125,28 @@
                 @endforeach
             </tbody>
         </table>
+        @elseif (isset($productos_data[0]))
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre del Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($productos_data as $producto)
+                <tr>
+                    <td>{{ $producto['name'] }}</td>
+                    <td>${{ number_format($producto['price'], 2, ',', '.') }}</td>
+                    <td>{{ $producto['quantity'] }}</td>
+                    <td>${{ number_format($producto['price'] * $producto['quantity'], 2, ',', '.') }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @endif
 
         <div class="footer">
             <p>Gracias por su compra.</p>
