@@ -124,23 +124,6 @@
             </div>
 
             <div class="form-group">
-                <label for="option">Opción</label>
-                <select required name="option" id="option" class="form-control">
-                    <option value="empresa">Empresa</option>
-                    <option value="freelancer">Freelancer</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="option_venta">Opción Venta</label>
-                <select required name="option_venta" id="option_venta" class="form-control">
-                    <option value="productos">Productos</option>
-                    <option value="servicios en persona">Servicios En Persona</option>
-                    <option value="servicios online">Servicios Online</option>
-                </select>
-            </div>
-
-            <div class="form-group">
                 <button type="submit" class="btn btn-primary">Registrarse</button>
             </div>
         </form>
