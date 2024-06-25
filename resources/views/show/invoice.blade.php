@@ -45,8 +45,6 @@
 
         .invoice-details .status {
             font-weight: bold;
-            text-transform: uppercase;
-            color: green;
         }
 
         .footer {
