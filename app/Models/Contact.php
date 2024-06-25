@@ -11,4 +11,9 @@ class Contact extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = ['name', 'company', 'email', 'phone'];
+
+    public function ventas()
+    {
+        return $this->hasMany(Venta::class);
+    }
 }

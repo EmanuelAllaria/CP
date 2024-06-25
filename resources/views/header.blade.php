@@ -58,6 +58,9 @@ if (!isset($_SESSION['user_id'])) {
             <h2><a href="/clients">Clientes</a></h2>
         </div>
         <div class="sidebar-stat-item">
+            <h2><a href="/leads">Ventas</a></h2>
+        </div>
+        <div class="sidebar-stat-item">
             <h2><a href="/services">Servicios</a></h2>
         </div>
         <div class="sidebar-stat-item">

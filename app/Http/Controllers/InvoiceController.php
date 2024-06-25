@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use App\Models\Invoice;
+use App\Models\Producto;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,24 +37,43 @@ class InvoiceController extends Controller
         $invoice->client_name = $contact->name;
         $invoice->client_company = $contact->company;
 
-        $servicio_ids = explode(', ', $invoice->servicio_ids);
-
-        $servicio_counts = array_count_values($servicio_ids);
-
-        $servicios = Service::whereIn('id', array_keys($servicio_counts))->get();
-
+        $productos_data = [];
         $servicios_data = [];
-        foreach ($servicios as $servicio) {
-            $servicios_data[] = [
-                'name' => $servicio->name,
-                'price' => $servicio->price,
-                'quantity' => $servicio_counts[$servicio->id],
-            ];
+
+        if (isset($invoice->servicio_ids)) {
+            $servicio_ids = explode(', ', $invoice->servicio_ids);
+
+            $servicio_counts = array_count_values($servicio_ids);
+
+            $servicios = Service::whereIn('id', array_keys($servicio_counts))->get();
+
+            foreach ($servicios as $servicio) {
+                $servicios_data[] = [
+                    'name' => $servicio->name,
+                    'price' => $servicio->price,
+                    'quantity' => $servicio_counts[$servicio->id],
+                ];
+            }
+        } elseif (isset($invoice->producto_ids)) {
+            $producto_ids = explode(', ', $invoice->producto_ids);
+
+            $producto_counts = array_count_values($producto_ids);
+
+            $productos = Producto::whereIn('id', array_keys($producto_counts))->get();
+
+            foreach ($productos as $producto) {
+                $productos_data[] = [
+                    'name' => $producto->name,
+                    'price' => $producto->price,
+                    'quantity' => $producto_counts[$producto->id],
+                ];
+            }
         }
 
         return view('show.invoice', [
             'invoice' => $invoice,
             'servicios_data' => $servicios_data,
+            'productos_data' => $productos_data,
         ]);
     }
 
