@@ -34,8 +34,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::findOrFail($id);
 
         $contact = Contact::where('id', $invoice->client_id)->first();
-        $invoice->client_name = $contact->name;
-        $invoice->client_company = $contact->company;
+        $invoice->cliente = $contact;
 
         $productos_data = [];
         $servicios_data = [];
