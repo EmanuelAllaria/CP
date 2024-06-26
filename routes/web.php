@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LeadController;
@@ -60,3 +61,10 @@ Route::get('/leads', [LeadController::class, 'gestionarLeads'])->name('leads.ind
 Route::post('/lead', [LeadController::class, 'crearLead'])->name('leads.crear');
 Route::get('/lead/{lead}/convertir', [LeadController::class, 'convertirLead'])->name('leads.convertir');
 Route::post('/automatizar-venta', [LeadController::class, 'automatizarVenta'])->name('ventas.automatizar');
+
+// Cotizacion
+Route::get('cotizaciones', [CotizacionController::class, 'index']);
+Route::get('cotizacion/{id}', [CotizacionController::class, 'show']);
+Route::post('cotizacion', [CotizacionController::class, 'store']);
+Route::post('cotizacion/{id}', [CotizacionController::class, 'update']);
+Route::delete('cotizacion/{id}', [CotizacionController::class, 'destroy']);

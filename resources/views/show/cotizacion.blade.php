@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CP | Detalle de Factura</title>
+    <title>CP | Detalle de Cotización</title>
 
     <!-- Bootstrap CSS (opcional, si se desea) -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -35,16 +35,12 @@
             font-size: 24px;
         }
 
-        .invoice-details {
+        .quote-details {
             margin-bottom: 20px;
         }
 
-        .invoice-details p {
+        .quote-details p {
             margin: 5px 0;
-        }
-
-        .invoice-details .status {
-            font-weight: bold;
         }
 
         .footer {
@@ -71,12 +67,12 @@
             background-color: #f2f2f2;
         }
 
-        .invoice-summary {
+        .quote-summary {
             text-align: right;
             margin-top: 20px;
         }
 
-        .invoice-summary p {
+        .quote-summary p {
             margin: 5px 0;
         }
 
@@ -101,11 +97,11 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Factura</h1>
+            <h1>Cotización</h1>
         </div>
 
         <div class="">
-            <div class="invoice-details">
+            <div class="quote-details">
                 <p><strong>CP</strong></p>
                 <p>Control Panel</p>
                 <p>allariemanuel@gmail.com</p>
@@ -116,21 +112,18 @@
         <hr>
 
         <div class="d-flex align-items-start justify-content-between">
-            <div class="invoice-details">
+            <div class="quote-details">
                 <p><strong>Cliente:</strong></p>
-                <p>{{ $invoice['cliente']['name'] }}</p>
-                <p>{{ $invoice['cliente']['company'] }}</p>
-                <p>{{ $invoice['cliente']['email'] }}</p>
-                <p>{{ $invoice['cliente']['phone'] }}</p>
+                <p>{{ $cotizacion['client_name'] }}</p>
             </div>
 
-            <div class="invoice-details">
-                <p><strong>Factura N°:</strong> #{{ $invoice['id'] }}</p>
-                <p><strong>Fecha:</strong> {{ date('d/m/Y', strtotime($invoice['created_at'])) }}</p>
-                @if (isset($invoice['due_date']))
-                <p><strong>Vencimiento:</strong> {{ date('d/m/Y', strtotime($invoice['due_date'])) }}</p>
+            <div class="quote-details">
+                <p><strong>Cotización N°:</strong> #{{ $cotizacion['id'] }}</p>
+                <p><strong>Fecha:</strong> {{ date('d/m/Y', strtotime($cotizacion['created_at'])) }}</p>
+                @if (isset($cotizacion['expiration_date']))
+                <p><strong>Válido Hasta:</strong> {{ date('d/m/Y', strtotime($cotizacion['expiration_date'])) }}</p>
                 @endif
-                <p><strong>Estado del pago:</strong> <span class="status">{{ $invoice['status'] === 'paid' ? 'Pagado' : 'Falta Pagar' }}</span></p>
+                <p><strong>Estado:</strong> <span class="status">{{ $cotizacion['status'] === 'approved' ? 'Aprobada' : ($cotizacion['status'] === 'pending' ? 'Pendiente' : 'Rechazada') }}</span></p>
             </div>
         </div>
 
@@ -182,14 +175,12 @@
         </table>
         @endif
 
-        <div class="invoice-summary">
-            <p><strong>Método de Pago:</strong> {{ ucwords($invoice['tipo_pago']) }}</p>
-            <p><strong>Cantidad Pagada:</strong> ${{ number_format($invoice['amount'], 2, ',', '.') }}</p>
-            <p><strong>Cantidad Adeudada:</strong> ${{ number_format($invoice['amount_missing'], 2, ',', '.') }}</p>
+        <div class="quote-summary">
+            <p><strong>Total Cotizado:</strong> ${{ number_format($cotizacion['amount'], 2, ',', '.') }}</p>
         </div>
 
         <div class="footer">
-            <p>Gracias por su compra.</p>
+            <p>Gracias por su interés en nuestros servicios.</p>
         </div>
     </div>
 </body>

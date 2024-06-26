@@ -69,5 +69,8 @@
         <div class="sidebar-stat-item">
             <h2><a href="/invoices">Facturas</a></h2>
         </div>
+        <div class="sidebar-stat-item">
+            <h2><a href="/cotizaciones">Cotizaciones</a></h2>
+        </div>
     </div>
 </div>
