@@ -22,16 +22,12 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'option' => 'required|string|max:191',
-            'option_venta' => 'required|string|max:191',
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'option' => $request->option,
-            'option_venta' => $request->option_venta,
         ]);
 
         return response()->json(['mensaje' => 'Se creó el usuario correctamente', 'user' => $user], 201);
