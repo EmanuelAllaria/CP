@@ -11,6 +11,7 @@ class Invoice extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
+        'user_id',
         'servicio_ids',
         'producto_ids',
         'client_id',

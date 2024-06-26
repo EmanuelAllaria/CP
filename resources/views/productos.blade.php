@@ -192,6 +192,7 @@
                 event.preventDefault();
 
                 const formData = new FormData(createProductoForm);
+                formData.append('user_id', <?php echo $user_id ?>);
 
                 fetch('/producto', {
                         method: 'POST',
@@ -213,6 +214,7 @@
                 event.preventDefault();
 
                 const formData = new FormData(uploadExcelForm);
+                formData.append('user_id', <?php echo $user_id ?>);
 
                 fetch('/productos/uploadExcel', {
                         method: 'POST',

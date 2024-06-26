@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('name', 191);
             $table->text('description', 255)->nullable();
             $table->decimal('price', 10, 2);

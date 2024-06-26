@@ -1,17 +1,10 @@
 <?php
 
-use App\Models\User;
-
-if (isset($_GET['user_id'])) {
-    // session_start();
-    $user_id = $_GET['user_id'];
-
-    $_SESSION['user'] = User::where('id', $user_id)->first();
-}
-
 use Carbon\Carbon;
 
 $hoy = Carbon::now();
+
+$user_id = $data['user_id'];
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +21,7 @@ $hoy = Carbon::now();
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/15fbf0e0d4.js" crossorigin="anonymous"></script>
 
     <style>
         body {
@@ -107,9 +101,12 @@ $hoy = Carbon::now();
                 <h2>Nuevos Clientes</h2>
                 <p>{{ $data['totalContacts'] }}</p>
             </div>
-            <div class="stat-item">
-                <h2>Proyectos Activos</h2>
+            <div class="stat-item" style="position:relative;">
+                <h2 class="message-proyects-activator">Proyectos Activos</h2>
                 <p>{{ $data['totalProjectsActivas'] }}</p>
+                <div class="message-proyects" style="position: absolute;background: red;color: #fff;padding: 0.5em;border-radius: 10px;border: 3px solid rgb(0, 0, 0);top: 30%;left: 0;">
+                    <p style="font-size:0.8em;">Los proyectos activos sin fecha de fin están activos solo este mes; se actualizan mensualmente.</p>
+                </div>
             </div>
             <div class="stat-item">
                 <h2>Tareas Completadas</h2>
@@ -119,9 +116,12 @@ $hoy = Carbon::now();
                 <h2>Tareas No Completadas</h2>
                 <p>{{ $data['totalTareasNoCompletadas'] }}</p>
             </div>
-            <div class="stat-item">
-                <h2>Facturación del Mes</h2>
+            <div class="stat-item" style="position:relative;">
+                <h2 class="message-invoice-activator">Facturación del Mes</h2>
                 <p>${{ number_format($data['totalInvoices'], 2, ',', '.') }}</p>
+                <div class="message-invoice" style="position: absolute;background: red;color: #fff;padding: 0.5em;border-radius: 10px;border: 3px solid rgb(0, 0, 0);top: 30%;left: 0;">
+                    <p style="font-size:0.8em;">Las facturas sin fecha de vencimientio se suman solo las creadas este mes; se actualizan mensualmente.</p>
+                </div>
             </div>
             <div class="stat-item">
                 <h2>Productos Totales</h2>
@@ -210,6 +210,33 @@ $hoy = Carbon::now();
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.message-proyects').hide();
+
+            $('.message-proyects-activator').mouseenter(function() {
+                $('.message-proyects').show();
+            });
+
+            $('.message-proyects-activator').mouseleave(function() {
+                $('.message-proyects').hide();
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.message-invoice').hide();
+
+            $('.message-invoice-activator').mouseenter(function() {
+                $('.message-invoice').show();
+            });
+
+            $('.message-invoice-activator').mouseleave(function() {
+                $('.message-invoice').hide();
+            });
+        });
+    </script>
 </body>
 
 </html>

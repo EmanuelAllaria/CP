@@ -187,6 +187,7 @@
 
                 // Obtener datos del formulario
                 const formData = new FormData(createClientForm);
+                formData.append('user_id', <?php echo $user_id ?>);
 
                 // Enviar solicitud AJAX para crear la factura
                 fetch('/client', {

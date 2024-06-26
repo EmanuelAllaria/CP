@@ -193,6 +193,7 @@ $proyectos = Proyecto::all();
             createTaskForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 const formData = new FormData(createTaskForm);
+                formData.append('user_id', <?php echo $user_id ?>);
                 fetch('/tarea', {
                         method: 'POST',
                         headers: {

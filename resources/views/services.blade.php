@@ -143,6 +143,7 @@
             createServiceForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 const formData = new FormData(createServiceForm);
+                formData.append('user_id', <?php echo $user_id ?>);
                 fetch('/service', {
                         method: 'POST',
                         headers: {

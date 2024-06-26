@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('leads', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('nombre', 191);
             $table->string('email', 191);
             $table->integer('telefono');

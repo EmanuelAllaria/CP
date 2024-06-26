@@ -5,14 +5,24 @@ namespace App\Http\Controllers;
 use App\Imports\ProductosImport;
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductoController extends Controller
 {
-    public function index()
+    public function index($user_id = null)
     {
-        $productos = Producto::orderBy('id', 'asc')->get();
-        return view('productos', compact('productos'));
+        if (!isset($user_id) || $user_id === '') {
+            return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
+        } else {
+            $user = User::find($user_id);
+            if (!isset($user)) {
+                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
+            }
+        }
+
+        $productos = Producto::where('user_id', $user_id)->orderBy('id', 'asc')->get();
+        return view('productos', ['productos' => $productos, 'user_id' => $user_id]);
     }
 
     public function store(Request $request)
@@ -53,17 +63,14 @@ class ProductoController extends Controller
             $insert = 0;
 
             foreach ($data as $item) {
+                $item['user_id'] = intval($request->user_id);
                 Producto::create($item);
                 $insert++;
             }
 
             return response()->json(['success' => 'Imported ' . $insert . ' rows successfully.', 'data' => $data], 200);
         } catch (\Throwable $e) {
-            if ($request->ajax()) {
-                return response()->json(['error' => 'Error importing Excel file: ' . $e->getMessage()], 500);
-            } else {
-                return back()->with('error', 'Error importing Excel file: ' . $e->getMessage());
-            }
+            return response()->json(['error' => 'Error importing Excel file: ' . $e->getMessage()], 500);
         }
     }
 }

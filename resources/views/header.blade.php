@@ -1,9 +1,3 @@
-<?php
-if (!isset($_SESSION['user_id'])) {
-    session_start();
-}
-?>
-
 <style>
     .sidebar-header {
         background-color: #007bff;
@@ -48,32 +42,32 @@ if (!isset($_SESSION['user_id'])) {
 </style>
 
 <div class="sidebar-header">
-    <a href="/dashboard" style="color:#fff;">
+    <a href="/dashboard/user_id/{{ $user_id }}" style="color:#fff;">
         <h1 class="text-center" style="line-height:0.7;font-size:2em;">CP
             <br> <span style="font-size:0.4em;color:#000;">CONTROL PANEL</span>
         </h1>
     </a>
     <div class="sidebar-stats">
         <div class="sidebar-stat-item">
-            <h2><a href="/clients">Clientes</a></h2>
+            <h2><a href="/clients/user_id/{{ $user_id }}">Clientes</a></h2>
         </div>
         <div class="sidebar-stat-item">
-            <h2><a href="/leads">Ventas</a></h2>
+            <h2><a href="/leads/user_id/{{ $user_id }}">Ventas</a></h2>
         </div>
         <div class="sidebar-stat-item">
-            <h2><a href="/services">Servicios</a></h2>
+            <h2><a href="/services/user_id/{{ $user_id }}">Servicios</a></h2>
         </div>
         <div class="sidebar-stat-item">
-            <h2><a href="/productos">Productos</a></h2>
+            <h2><a href="/productos/user_id/{{ $user_id }}">Productos</a></h2>
         </div>
         <div class="sidebar-stat-item">
-            <h2><a href="/proyectos">Proyectos</a></h2>
+            <h2><a href="/proyectos/user_id/{{ $user_id }}">Proyectos</a></h2>
         </div>
         <div class="sidebar-stat-item">
-            <h2><a href="/tareas">Tareas</a></h2>
+            <h2><a href="/tareas/user_id/{{ $user_id }}">Tareas</a></h2>
         </div>
         <div class="sidebar-stat-item">
-            <h2><a href="/invoices">Facturas</a></h2>
+            <h2><a href="/invoices/user_id/{{ $user_id }}">Facturas</a></h2>
         </div>
         <div class="sidebar-stat-item">
             <h2><a href="/cotizaciones">Cotizaciones</a></h2>

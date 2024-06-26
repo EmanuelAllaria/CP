@@ -6,20 +6,29 @@ use App\Models\Contact;
 use App\Models\Invoice;
 use App\Models\Producto;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
-    public function index()
+    public function index($user_id = null)
     {
-        $invoices = DB::table('invoices')
-            ->select('invoices.*', 'contacts.name as client_name', 'contacts.company as client_company')
+        if (!isset($user_id) || $user_id === '') {
+            return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
+        } else {
+            $user = User::find($user_id);
+            if (!isset($user)) {
+                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
+            }
+        }
+
+        $invoices = Invoice::select('invoices.*', 'contacts.name as client_name', 'contacts.company as client_company')
             ->join('contacts', 'invoices.client_id', '=', 'contacts.id')
+            ->where('invoices.user_id', $user_id)
             ->orderByDesc('invoices.id')
             ->get();
 
-        return view('invoices', ['invoices' => $invoices]);
+        return view('invoices', ['invoices' => $invoices, 'user_id' => $user_id]);
     }
 
     public function store(Request $request)
