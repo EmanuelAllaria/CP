@@ -10,7 +10,7 @@ class Contact extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'user_id', 'company', 'email', 'phone'];
+    protected $fillable = ['name', 'user_id', 'company', 'email', 'phone', 'active'];
 
     public function ventas()
     {

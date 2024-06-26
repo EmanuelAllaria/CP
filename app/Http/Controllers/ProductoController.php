@@ -10,16 +10,12 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductoController extends Controller
 {
-    public function index($user_id = null)
+    public function index()
     {
-        if (!isset($user_id) || $user_id === '') {
+        if (!auth()->check()) {
             return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
-        } else {
-            $user = User::find($user_id);
-            if (!isset($user)) {
-                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
-            }
         }
+        $user_id = auth()->id();
 
         $productos = Producto::where('user_id', $user_id)->orderBy('id', 'asc')->get();
         return view('productos', ['productos' => $productos, 'user_id' => $user_id]);
