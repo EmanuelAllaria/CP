@@ -48,7 +48,8 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            return response()->json(['user' => $user, 'mensaje' => 'Inicio de Sesión exitoso'], 200);
+            return response()->json(['user' => $user]);
+            // return redirect()->route('dashboard');
         }
 
         return back()->withErrors([

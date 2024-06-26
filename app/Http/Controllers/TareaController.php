@@ -10,16 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class TareaController extends Controller
 {
-    public function index($user_id = null)
+    public function index()
     {
-        if (!isset($user_id) || $user_id === '') {
+        if (!auth()->check()) {
             return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
-        } else {
-            $user = User::find($user_id);
-            if (!isset($user)) {
-                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
-            }
         }
+        $user_id = auth()->id();
 
         $tareas = Tarea::join('proyectos', 'tareas.proyecto_id', '=', 'proyectos.id')
             ->select('tareas.*', 'proyectos.nombre as nombre_proyecto')

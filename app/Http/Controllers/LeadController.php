@@ -11,16 +11,12 @@ use Illuminate\Http\Request;
 
 class LeadController extends Controller
 {
-    public function gestionarLeads($user_id = null)
+    public function gestionarLeads()
     {
-        if (!isset($user_id) || $user_id === '') {
+        if (!auth()->check()) {
             return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
-        } else {
-            $user = User::find($user_id);
-            if (!isset($user)) {
-                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
-            }
         }
+        $user_id = auth()->id();
 
         $leads = Lead::where('user_id', $user_id);
         return view('leads', ['leads' => $leads, 'user_id' => $user_id]);

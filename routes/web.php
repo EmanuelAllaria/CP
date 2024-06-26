@@ -22,41 +22,42 @@ Route::get('/register', function () {
 Route::post('/login-post', [UserController::class, 'login']);
 Route::post('/register-post', [UserController::class, 'register']);
 
-Route::get('/dashboard/user_id/{user_id}', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/proyectos', [ProyectoController::class, 'index']);
 
 // Invoice
-Route::get('/invoices/user_id/{user_id}', [InvoiceController::class, 'index']);
+Route::get('/invoices', [InvoiceController::class, 'index']);
 Route::get('/invoice/{id}', [InvoiceController::class, 'show']);
 Route::post('/invoice', [InvoiceController::class, 'store']);
 Route::post('/invoice/{id}', [InvoiceController::class, 'update']);
 
 // Proyecto
-Route::get('/proyectos/user_id/{user_id}', [ProyectoController::class, 'index']);
+Route::get('/proyectos', [ProyectoController::class, 'index']);
 Route::post('/proyecto', [ProyectoController::class, 'store']);
 
 // Tarea
-Route::get('/tareas/user_id/{user_id}', [TareaController::class, 'index']);
+Route::get('/tareas', [TareaController::class, 'index']);
 Route::post('/tarea', [TareaController::class, 'store']);
 Route::post('/tarea/{id}', [TareaController::class, 'update']);
 
 // Client
-Route::get('/clients/user_id/{user_id}', [ContactController::class, 'index']);
+Route::get('/clients', [ContactController::class, 'index']);
 Route::post('/client', [ContactController::class, 'store']);
 Route::post('/client/uploadExcel', [ContactController::class, 'uploadExcel']);
 
 // Service
-Route::get('/services/user_id/{user_id}', [ServiceController::class, 'index']);
+Route::get('/services', [ServiceController::class, 'index']);
 Route::post('/service', [ServiceController::class, 'store']);
 
 // Producto
-Route::get('/productos/user_id/{user_id}', [ProductoController::class, 'index']);
+Route::get('/productos', [ProductoController::class, 'index']);
 Route::get('/producto/{id}', [ProductoController::class, 'show']);
 Route::post('/producto', [ProductoController::class, 'store']);
 Route::post('/producto/{id}', [ProductoController::class, 'update']);
 Route::post('/productos/uploadExcel', [ProductoController::class, 'uploadExcel']);
 
-Route::get('/leads/user_id/{user_id}', [LeadController::class, 'gestionarLeads'])->name('leads.index');
+// Leads
+Route::get('/leads', [LeadController::class, 'gestionarLeads'])->name('leads.index');
 Route::post('/lead', [LeadController::class, 'crearLead'])->name('leads.crear');
 Route::get('/lead/{lead}/convertir', [LeadController::class, 'convertirLead'])->name('leads.convertir');
 Route::post('/automatizar-venta', [LeadController::class, 'automatizarVenta'])->name('ventas.automatizar');

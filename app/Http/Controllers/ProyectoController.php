@@ -8,16 +8,12 @@ use App\Models\User;
 
 class ProyectoController extends Controller
 {
-    public function index($user_id = null)
+    public function index()
     {
-        if (!isset($user_id) || $user_id === '') {
+        if (!auth()->check()) {
             return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
-        } else {
-            $user = User::find($user_id);
-            if (!isset($user)) {
-                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
-            }
         }
+        $user_id = auth()->id();
 
         $proyectos = Proyecto::where('user_id', $user_id)->get();
         return view('proyectos', ['proyectos' => $proyectos, 'user_id' => $user_id]);

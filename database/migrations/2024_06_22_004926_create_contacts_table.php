@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('name', 191);
             $table->string('company', 191)->nullable();
-            $table->string('email', 191)->unique();
+            $table->string('email', 191);
             $table->integer('phone')->nullable();
             $table->tinyInteger('active')->default(0);
             $table->timestamps();

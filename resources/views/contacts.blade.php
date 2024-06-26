@@ -210,6 +210,7 @@
                 event.preventDefault();
 
                 const formData = new FormData(uploadExcelForm);
+                formData.append('user_id', <?php echo $user_id ?>);
 
                 fetch('/client/uploadExcel', {
                         method: 'POST',
@@ -220,7 +221,7 @@
                     })
                     .then(() => {
                         $('#uploadExcelModal').modal('hide');
-                        window.location.reload();
+                        // window.location.reload();
                     })
                     .catch(error => console.error('Error al enviar la solicitud:', error));
             });
