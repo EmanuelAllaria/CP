@@ -10,5 +10,5 @@ class Proyecto extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['nombre', 'descripcion', 'fecha_inicio', 'fecha_fin', 'presupuesto'];
+    protected $fillable = ['nombre', 'user_id', 'descripcion', 'fecha_inicio', 'fecha_fin', 'presupuesto'];
 }

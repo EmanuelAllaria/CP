@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Venta extends Model
 {
     protected $fillable = [
-        'cliente_id', 'producto_id', 'cantidad', 'monto'
+        'cliente_id', 'user_id', 'producto_id', 'cantidad', 'monto'
     ];
 
     // Relación con cliente (una venta pertenece a un cliente)

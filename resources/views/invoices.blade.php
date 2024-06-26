@@ -152,7 +152,7 @@ $clients = Contact::all();
                         </div>
                         <div class="form-group">
                             <label for="invoiceDueDate">Fecha de Vencimiento</label>
-                            <input type="date" class="form-control" id="invoiceDueDate" name="due_date" required>
+                            <input type="date" class="form-control" id="invoiceDueDate" name="due_date">
                         </div>
                         <div class="form-group">
                             <label for="invoiceStatus">Estado</label>
@@ -240,6 +240,7 @@ $clients = Contact::all();
                 formData.append('amount', $('#invoiceAmount').val());
                 formData.append('due_date', $('#invoiceDueDate').val());
                 formData.append('status', $('#invoiceStatus').val());
+                formData.append('user_id', <?php echo $user_id ?>);
 
                 // Send AJAX request to create invoice
                 fetch('/invoice', {

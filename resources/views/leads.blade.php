@@ -188,6 +188,7 @@ $clientes = Contact::all();
                 formData.append('producto_id', $('#productoId').val());
                 formData.append('cantidad', $('#cantidad').val());
                 formData.append('monto', parseFloat($('#productoId option:selected').attr('price')) * parseInt($('#cantidad').val()));
+                formData.append('user_id', <?php echo $user_id ?>);
 
                 // Send AJAX request to create invoice
                 fetch('/lead', {

@@ -4,14 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\User;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index($user_id = null)
     {
-        $services = Service::all();
+        if (!isset($user_id) || $user_id === '') {
+            return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
+        } else {
+            $user = User::find($user_id);
+            if (!isset($user)) {
+                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
+            }
+        }
 
-        return view('services', ['services' => $services]);
+        $services = Service::where('user_id', $user_id)->get();
+
+        return view('services', ['services' => $services, 'user_id' => $user_id]);
     }
 
     public function store(Request $request)

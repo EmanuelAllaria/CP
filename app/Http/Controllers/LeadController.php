@@ -5,15 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Lead;
 use App\Models\Contact;
 use App\Models\Invoice;
+use App\Models\User;
 use App\Models\Venta;
 use Illuminate\Http\Request;
 
 class LeadController extends Controller
 {
-    public function gestionarLeads()
+    public function gestionarLeads($user_id = null)
     {
-        $leads = Lead::all();
-        return view('leads', compact('leads'));
+        if (!isset($user_id) || $user_id === '') {
+            return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
+        } else {
+            $user = User::find($user_id);
+            if (!isset($user)) {
+                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
+            }
+        }
+
+        $leads = Lead::where('user_id', $user_id);
+        return view('leads', ['leads' => $leads, 'user_id' => $user_id]);
     }
 
     public function crearLead(Request $request)
@@ -49,12 +59,14 @@ class LeadController extends Controller
         // Create lead using Lead model
         $leadCreate = Lead::create($lead);
         $ventaCreate = Venta::create([
+            'user_id' => $lead['user_id'],
             'cliente_id' => $lead['cliente_id'],
             'producto_id' => $lead['producto_id'],
             'cantidad' => $lead['cantidad'],
             'monto' => $lead['monto'],
         ]);
         $invoiceCreate = Invoice::create([
+            'user_id' => $lead['user_id'],
             'producto_ids' => implode(', ', array_fill(0, intval($lead['cantidad']), $lead['producto_id'])),
             'client_id' => $lead['cliente_id'],
             'amount' => $lead['monto'],
@@ -67,7 +79,7 @@ class LeadController extends Controller
 
     public function convertirLead(Request $request, Lead $lead)
     {
-        $clienteExiste = Contact::where('id', $lead['cliente_id'])->first();
+        $clienteExiste = Contact::find($lead['cliente_id']);
         if (isset($clienteExiste->id)) {
             // Set the 'activo' attribute to 1
             $clienteExiste->activo = 1;

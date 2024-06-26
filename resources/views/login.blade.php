@@ -111,7 +111,7 @@
                     .then((res) => res.json())
                     .then((data) => {
                         sessionStorage.user = JSON.stringify(data.user);
-                        window.location.href = '/dashboard';
+                        window.location.href = `/dashboard/user_id/${data.user.id}`;
                     })
                     .catch(error => console.error('Error al enviar la solicitud:', error));
             });

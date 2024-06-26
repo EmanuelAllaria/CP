@@ -5,14 +5,24 @@ namespace App\Http\Controllers;
 use App\Imports\ProductosImport;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index($user_id = null)
     {
-        $contacts = Contact::orderBy('id', 'asc')->get();
-        return view('contacts', ['contacts' => $contacts]);
+        if (!isset($user_id) || $user_id === '') {
+            return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
+        } else {
+            $user = User::find($user_id);
+            if (!isset($user)) {
+                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
+            }
+        }
+
+        $contacts = Contact::where('user_id', $user_id)->orderBy('id', 'asc')->get();
+        return view('contacts', ['contacts' => $contacts, 'user_id' => $user_id]);
     }
 
     public function store(Request $request)
@@ -22,6 +32,7 @@ class ContactController extends Controller
         $contact->company = $request->company;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
+        $contact->user_id = $request->user_id;
         $contact->save();
 
         return response(['data' => $contact, 'mensaje' => 'Se creó el cliente con exito'], 200);

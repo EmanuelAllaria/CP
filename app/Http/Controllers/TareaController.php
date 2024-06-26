@@ -5,18 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Proyecto;
 use App\Models\Tarea;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class TareaController extends Controller
 {
-    public function index()
+    public function index($user_id = null)
     {
-        $tareas = DB::table('tareas')
-            ->join('proyectos', 'tareas.proyecto_id', '=', 'proyectos.id')
+        if (!isset($user_id) || $user_id === '') {
+            return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
+        } else {
+            $user = User::find($user_id);
+            if (!isset($user)) {
+                return response()->json(['mensaje' => 'No existe este usuario, porfavor registrese.'], 404);
+            }
+        }
+
+        $tareas = Tarea::join('proyectos', 'tareas.proyecto_id', '=', 'proyectos.id')
             ->select('tareas.*', 'proyectos.nombre as nombre_proyecto')
+            ->where('tareas.user_id', $user_id)
             ->get();
 
-        return view('tareas', ['tareas' => $tareas]);
+        return view('tareas', ['tareas' => $tareas, 'user_id' => $user_id]);
     }
 
     public function store(Request $request)

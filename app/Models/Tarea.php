@@ -10,5 +10,5 @@ class Tarea extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['proyecto_id', 'nombre', 'descripcion', 'fecha_limite', 'completada'];
+    protected $fillable = ['proyecto_id', 'user_id', 'nombre', 'descripcion', 'fecha_limite', 'completada'];
 }

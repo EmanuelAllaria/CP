@@ -11,6 +11,7 @@ class Producto extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
+        'user_id',
         'name',
         'description',
         'price',
