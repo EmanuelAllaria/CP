@@ -69,5 +69,8 @@
         <div class="sidebar-stat-item">
             <h2><a href="/invoices/user_id/{{ $user_id }}">Facturas</a></h2>
         </div>
+        <div class="sidebar-stat-item">
+            <h2><a href="/cotizaciones">Cotizaciones</a></h2>
+        </div>
     </div>
 </div>
