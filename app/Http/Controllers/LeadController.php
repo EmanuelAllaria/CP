@@ -18,7 +18,7 @@ class LeadController extends Controller
         }
         $user_id = auth()->id();
 
-        $leads = Lead::where('user_id', $user_id);
+        $leads = Lead::where('user_id', $user_id)->get();
         return view('leads', ['leads' => $leads, 'user_id' => $user_id]);
     }
 
