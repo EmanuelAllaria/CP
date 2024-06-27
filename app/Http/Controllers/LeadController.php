@@ -78,10 +78,7 @@ class LeadController extends Controller
     {
         $clienteExiste = Contact::find($lead['cliente_id']);
         if (isset($clienteExiste->id)) {
-            // Set the 'activo' attribute to 1
-            $clienteExiste->activo = 1;
-            // Update the model in the database
-            $clienteExiste->update(['activo' => 1]);
+            $clienteExiste->update(['active' => 1]);
         }
 
         $lead->update(['estado' => 'convertido']);
