@@ -41,6 +41,7 @@ class LeadController extends Controller
             }
         } else {
             $cliente = Contact::create([
+                'user_id' => $lead['user_id'],
                 'name' => $lead['nombre'],
                 'email' => $lead['email'],
                 'phone' => $lead['telefono'],
