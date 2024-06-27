@@ -8,7 +8,7 @@ $clients = Contact::all();
 ?>
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scrollbar-width: none;">
 
 <head>
     <meta charset="utf-8">
@@ -27,33 +27,26 @@ $clients = Contact::all();
 
     <style>
         body {
-            font-family: 'figtree', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'inter', sans-serif;
+            background-color: #11121E;
             padding: 20px;
             margin-left: 200px;
-            /* Ajuste para el panel lateral */
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
         }
 
         table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+            color: #fff !important;
         }
 
         th,
         td {
             padding: 10px;
             text-align: left;
-            border-bottom: 1px solid #dee2e6;
+            border: 1px solid #fff;
         }
 
         th {
-            background-color: #007bff;
+            background-color: #1d1d29;
             color: #fff;
         }
 
@@ -76,7 +69,7 @@ $clients = Contact::all();
     @include('header')
 
     <div class="container">
-        <h1 class="mt-4 mb-4">Facturas</h1>
+        <h1 class="mt-4 mb-4 text-white">Facturas</h1>
         <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createInvoiceModal">
             Crear Nueva Factura
         </button>

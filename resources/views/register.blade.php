@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scrollbar-width: none;">
 
 <head>
     <meta charset="utf-8">
@@ -15,8 +15,8 @@
 
     <style>
         body {
-            font-family: 'figtree', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'inter', sans-serif;
+            background-color: #11121E;
             padding: 20px;
             margin: 0;
             display: flex;
@@ -28,7 +28,7 @@
         .register-form {
             max-width: 400px;
             width: 100%;
-            background-color: #fff;
+            background-color: #1D1D29;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
@@ -84,42 +84,42 @@
 
 <body>
     <div class="register-form">
-        <h2 class="form-title">Registro</h2>
+        <h2 class="form-title text-white">Registro</h2>
         <form id="registerForm">
             @csrf
 
             <div class="form-group">
-                <label for="name">Nombre</label>
+                <label class="text-white" for="name">Nombre</label>
                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                 @error('name')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback text-white" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
             </div>
 
             <div class="form-group">
-                <label for="email">Correo Electrónico</label>
+                <label class="text-white" for="email">Correo Electrónico</label>
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                 @error('email')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback text-white" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
             </div>
 
             <div class="form-group">
-                <label for="password">Contraseña</label>
+                <label class="text-white" for="password">Contraseña</label>
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                 @error('password')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback text-white" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
             </div>
 
             <div class="form-group">
-                <label for="password-confirm">Confirmar Contraseña</label>
+                <label class="text-white" for="password-confirm">Confirmar Contraseña</label>
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
             </div>
 
@@ -127,7 +127,7 @@
                 <button type="submit" class="btn btn-primary">Registrarse</button>
             </div>
         </form>
-        <p class="my-0">¿Ya tienes una cuenta? <a href="/">Ingresa</a></p>
+        <p class="my-0 text-white">¿Ya tienes una cuenta? <a href="/">Ingresa</a></p>
     </div>
 
     <!-- Bootstrap JS y Popper -->

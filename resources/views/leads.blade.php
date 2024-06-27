@@ -7,7 +7,7 @@ $productos = Producto::all();
 $clientes = Contact::all();
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scrollbar-width: none;">
 
 <head>
     <meta charset="UTF-8">
@@ -18,15 +18,18 @@ $clientes = Contact::all();
     <!-- Estilos adicionales -->
     <style>
         body {
-            font-family: 'figtree', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'inter', sans-serif;
+            background-color: #11121E;
             padding: 20px;
             margin-left: 200px;
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
+        .lead-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: 5px;
+            grid-row-gap: 5px;
         }
 
         .lead-card {
@@ -55,28 +58,29 @@ $clientes = Contact::all();
     @include('header')
 
     <div class="container">
-        <h1>Lista de Leads</h1>
-        <!-- Botón para abrir el modal de creación de lead -->
+        <h1 class="mt-4 mb-4 text-white">Lista de Leads</h1>
         <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createLeadModal">
             Crear Nuevo Lead
         </button>
-        @foreach ($leads as $lead)
-        <div class="card lead-card">
-            <div class="card-body">
-                <h5 class="card-title">{{ $lead->nombre }}</h5>
-                <p class="card-text">Email: {{ $lead->email }}</p>
-                <p class="card-text">Teléfono: {{ $lead->telefono }}</p>
-                <p class="card-text">Monto: ${{ number_format($lead->monto, 2, ',', '.') }}</p>
-                <p class="card-text">Estado: {{ $lead->estado }}</p>
-                @if ($lead->estado !== 'convertido')
-                <form action="{{ route('leads.convertir', $lead) }}" method="GET">
-                    @csrf
-                    <button type="submit" class="btn btn-primary">Convertir a Cliente</button>
-                </form>
-                @endif
+        <div class="lead-list">
+            @foreach ($leads as $lead)
+            <div class="card lead-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $lead->nombre }}</h5>
+                    <p class="card-text">Email: {{ $lead->email }}</p>
+                    <p class="card-text">Teléfono: {{ $lead->telefono }}</p>
+                    <p class="card-text">Monto: ${{ number_format($lead->monto, 2, ',', '.') }}</p>
+                    <p class="card-text">Estado: {{ $lead->estado }}</p>
+                    @if ($lead->estado !== 'convertido')
+                    <form action="{{ route('leads.convertir', $lead) }}" method="GET">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">Convertir a Cliente</button>
+                    </form>
+                    @endif
+                </div>
             </div>
+            @endforeach
         </div>
-        @endforeach
     </div>
 
     <!-- Modal para la creación de nuevo cliente -->

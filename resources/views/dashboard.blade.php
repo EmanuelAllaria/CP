@@ -8,7 +8,7 @@ $user_id = $data['user_id'];
 ?>
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scrollbar-width: none;">
 
 <head>
     <meta charset="utf-8">
@@ -20,45 +20,46 @@ $user_id = $data['user_id'];
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=inter:400,600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/15fbf0e0d4.js" crossorigin="anonymous"></script>
 
     <style>
         body {
-            font-family: 'figtree', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'inter', sans-serif;
+            background-color: #11121E;
             padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
+            margin-left: 200px;
         }
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            grid-column-gap: 1em;
+            grid-row-gap: 1em;
         }
 
         .stat-item {
-            background-color: #fff;
+            background-color: #1d1d29;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
         .stat-item h2 {
-            font-size: 1.5rem;
+            font-size: 1rem;
             margin-bottom: 10px;
-            color: #007bff;
+            color: #fff;
         }
 
         .stat-item p {
+            color: #fff;
             font-size: 2rem;
             font-weight: bold;
             margin: 0;
+        }
+
+        .stat-item p:hover {
+            animation: bounce 1s;
         }
 
         .data-list {
@@ -81,11 +82,30 @@ $user_id = $data['user_id'];
             padding: 10px;
             border: 1px solid #dee2e6;
             text-align: left;
+            color: #fff;
         }
 
         .data-list table th {
-            background-color: #f8f9fa;
-            color: #6c757d;
+            background-color: #1c1c28;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-15px);
+            }
+
+            60% {
+                transform: translateY(-7px);
+            }
         }
     </style>
 </head>
@@ -94,43 +114,48 @@ $user_id = $data['user_id'];
     @include('header')
 
     <div class="container">
-        <h1 class="mt-4 mb-4">Panel de Control</h1>
+        <h1 class="mt-4 mb-4 text-white">Dashboard</h1>
 
         <div class="stats">
             <div class="stat-item">
                 <h2>Nuevos Clientes</h2>
-                <p>{{ $data['totalContacts'] }}</p>
+                <p style="width:max-content;">{{ $data['totalContacts'] }}</p>
+                <span style="font-size:0.7em;<?php echo $data['porcentajeEsteMesClients'] > 0 ? 'color:green;' : ($data['porcentajeEsteMesClients'] < 0 ? 'color:red;' : 'color:yellow;') ?>"><?php echo $data['porcentajeEsteMesClients'] > 0 ? '<i class="fa-solid fa-arrow-up"></i> ' : ($data['porcentajeEsteMesClients'] < 0 ? '<i class="fa-solid fa-arrow-down"></i> ' : '') ?>{{ sprintf("%.2f%%", $data['porcentajeEsteMesClients']) }} del mes pasado.</span>
             </div>
             <div class="stat-item" style="position:relative;">
                 <h2 class="message-proyects-activator">Proyectos Activos</h2>
-                <p>{{ $data['totalProjectsActivas'] }}</p>
-                <div class="message-proyects" style="position: absolute;background: red;color: #fff;padding: 0.5em;border-radius: 10px;border: 3px solid rgb(0, 0, 0);top: 30%;left: 0;">
+                <p style="width:max-content;">{{ $data['totalProjectsActivas'] }}</p>
+                <span style="font-size:0.7em;<?php echo $data['porcentajeEsteMesProjects'] > 0 ? 'color:green;' : ($data['porcentajeEsteMesProjects'] < 0 ? 'color:red;' : 'color:yellow;') ?>"><?php echo $data['porcentajeEsteMesProjects'] > 0 ? '<i class="fa-solid fa-arrow-up"></i> ' : ($data['porcentajeEsteMesProjects'] < 0 ? '<i class="fa-solid fa-arrow-down"></i> ' : '') ?>{{ sprintf("%.2f%%", $data['porcentajeEsteMesProjects']) }} del mes pasado.</span>
+                <div class="message-proyects" style="position: absolute;background: red;color: #fff;padding: 0.5em;border-radius: 10px;border: 3px solid rgb(0, 0, 0);top: 30%;left: 0;display: none;">
                     <p style="font-size:0.8em;">Los proyectos activos sin fecha de fin están activos solo este mes; se actualizan mensualmente.</p>
                 </div>
             </div>
             <div class="stat-item">
                 <h2>Tareas Completadas</h2>
-                <p>{{ $data['totalTareasCompletadas'] }}</p>
+                <p style="width:max-content;">{{ $data['totalTareasCompletadas'] }}</p>
+                <span style="font-size:0.7em;<?php echo $data['porcentajeEsteMesTareasCompletadas'] > 0 ? 'color:green;' : ($data['porcentajeEsteMesTareasCompletadas'] < 0 ? 'color:red;' : 'color:yellow;') ?>"><?php echo $data['porcentajeEsteMesTareasCompletadas'] > 0 ? '<i class="fa-solid fa-arrow-up"></i> ' : ($data['porcentajeEsteMesTareasCompletadas'] < 0 ? '<i class="fa-solid fa-arrow-down"></i> ' : '') ?>{{ sprintf("%.2f%%", $data['porcentajeEsteMesTareasCompletadas']) }} del mes pasado.</span>
             </div>
             <div class="stat-item">
                 <h2>Tareas No Completadas</h2>
-                <p>{{ $data['totalTareasNoCompletadas'] }}</p>
+                <p style="width:max-content;">{{ $data['totalTareasNoCompletadas'] }}</p>
+                <span style="font-size:0.7em;<?php echo $data['porcentajeEsteMesTareasNoCompletadas'] > 0 ? 'color:green;' : ($data['porcentajeEsteMesTareasNoCompletadas'] < 0 ? 'color:red;' : 'color:yellow;') ?>"><?php echo $data['porcentajeEsteMesTareasNoCompletadas'] > 0 ? '<i class="fa-solid fa-arrow-up"></i> ' : ($data['porcentajeEsteMesTareasNoCompletadas'] < 0 ? '<i class="fa-solid fa-arrow-down"></i> ' : '') ?>{{ sprintf("%.2f%%", $data['porcentajeEsteMesTareasNoCompletadas']) }} del mes pasado.</span>
             </div>
             <div class="stat-item" style="position:relative;">
-                <h2 class="message-invoice-activator">Facturación del Mes</h2>
-                <p>${{ number_format($data['totalInvoices'], 2, ',', '.') }}</p>
-                <div class="message-invoice" style="position: absolute;background: red;color: #fff;padding: 0.5em;border-radius: 10px;border: 3px solid rgb(0, 0, 0);top: 30%;left: 0;">
+                <h2 class="message-invoice-activator">Fondos Recibidos</h2>
+                <p style="color:green;width:max-content;">${{ number_format($data['totalInvoices'], 2, ',', '.') }}</p>
+                <span style="font-size:0.7em;<?php echo $data['porcentajeEsteMesInvoice'] > 0 ? 'color:green;' : ($data['porcentajeEsteMesInvoice'] < 0 ? 'color:red;' : 'color:yellow;') ?>"><?php echo $data['porcentajeEsteMesInvoice'] > 0 ? '<i class="fa-solid fa-arrow-up"></i> ' : ($data['porcentajeEsteMesInvoice'] < 0 ? '<i class="fa-solid fa-arrow-down"></i> ' : '') ?>{{ sprintf("%.2f%%", $data['porcentajeEsteMesInvoice']) }} del mes pasado.</span>
+                <div class="message-invoice" style="position: absolute;background: red;color: #fff;padding: 0.5em;border-radius: 10px;border: 3px solid rgb(0, 0, 0);top: 30%;left: 0;display: none;">
                     <p style="font-size:0.8em;">Las facturas sin fecha de vencimientio se suman solo las creadas este mes; se actualizan mensualmente.</p>
                 </div>
             </div>
             <div class="stat-item">
                 <h2>Productos Totales</h2>
-                <p>{{ $data['totalProductos'] }}</p>
+                <p style="width:max-content;">{{ $data['totalProductos'] }}</p>
             </div>
         </div>
 
         <div class="data-list">
-            <h2>Últimos Clientes</h2>
+            <h2 class="text-white">Últimos Clientes</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -141,6 +166,7 @@ $user_id = $data['user_id'];
                     </tr>
                 </thead>
                 <tbody>
+                    @if (isset($data['recentClients'][0]['id']))
                     @foreach ($data['recentClients'] as $client)
                     <tr>
                         <td>{{ $client['name'] }}</td>
@@ -149,12 +175,17 @@ $user_id = $data['user_id'];
                         <td>{{ $client['phone'] }}</td>
                     </tr>
                     @endforeach
+                    @else
+                    <tr>
+                        <td colspan="4" class="text-center">No hay clientes.</td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
 
         <div class="data-list">
-            <h2>Últimos Proyectos</h2>
+            <h2 class="text-white">Últimos Proyectos</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -167,6 +198,7 @@ $user_id = $data['user_id'];
                     </tr>
                 </thead>
                 <tbody>
+                    @if (isset($data['recentProjects'][0]['id']))
                     @foreach ($data['recentProjects'] as $project)
                     <tr>
                         <td>{{ $project['nombre'] }}</td>
@@ -177,12 +209,17 @@ $user_id = $data['user_id'];
                         <td>{{ (Carbon::parse($project['fecha_fin'])->lessThanOrEqualTo($hoy) || Carbon::parse($project['fecha_fin'])->month === $hoy->month) && Carbon::parse($project['fecha_fin'])->day < $hoy->day ? 'No' : 'Si' }}</td>
                     </tr>
                     @endforeach
+                    @else
+                    <tr>
+                        <td colspan="6" class="text-center">No hay proyectos.</td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
 
         <div class="data-list">
-            <h2>Últimas Tareas</h2>
+            <h2 class="text-white">Últimas Tareas</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -193,6 +230,7 @@ $user_id = $data['user_id'];
                     </tr>
                 </thead>
                 <tbody>
+                    @if (isset($data['recentTareas'][0]['id']))
                     @foreach ($data['recentTareas'] as $task)
                     <tr>
                         <td>{{ $task['nombre'] }}</td>
@@ -201,6 +239,11 @@ $user_id = $data['user_id'];
                         <td>{{ $task['completada'] ? 'Sí' : 'No' }}</td>
                     </tr>
                     @endforeach
+                    @else
+                    <tr>
+                        <td colspan="4" class="text-center">No hay Tareas.</td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

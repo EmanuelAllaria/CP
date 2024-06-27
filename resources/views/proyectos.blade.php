@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scrollbar-width: none;">
 
 <head>
     <meta charset="utf-8">
@@ -18,20 +18,18 @@
 
     <style>
         body {
-            font-family: 'figtree', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'inter', sans-serif;
+            background-color: #11121E;
             padding: 20px;
             margin-left: 200px;
-            /* Ajuste para el panel lateral */
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto;
         }
 
         .project-list {
-            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: 5px;
+            grid-row-gap: 5px;
         }
 
         .project-item {
@@ -81,12 +79,12 @@
     @include('header')
 
     <div class="container">
-        <h1 class="mt-4 mb-4">Gestión de Proyectos</h1>
+        <h1 class="mt-4 mb-4 text-white">Gestión de Proyectos</h1>
 
+        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createProjectModal">
+            Crear Nuevo Proyecto
+        </button>
         <div class="project-list">
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createProjectModal">
-                Crear Nuevo Proyecto
-            </button>
             @foreach ($proyectos as $project)
             <div class="project-item">
                 <div class="project-buttons">

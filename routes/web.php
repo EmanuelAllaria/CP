@@ -21,6 +21,7 @@ Route::get('/register', function () {
 })->name('register');
 Route::post('/login-post', [UserController::class, 'login']);
 Route::post('/register-post', [UserController::class, 'register']);
+Route::get('/logout', [UserController::class, 'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/proyectos', [ProyectoController::class, 'index']);

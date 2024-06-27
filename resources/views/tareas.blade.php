@@ -6,7 +6,7 @@ $proyectos = Proyecto::all();
 ?>
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scrollbar-width: none;">
 
 <head>
     <meta charset="utf-8">
@@ -25,19 +25,18 @@ $proyectos = Proyecto::all();
 
     <style>
         body {
-            font-family: 'figtree', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'inter', sans-serif;
+            background-color: #11121E;
             padding: 20px;
             margin-left: 200px;
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-
         .task-list {
-            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: 5px;
+            grid-row-gap: 5px;
         }
 
         .task-item {
@@ -98,12 +97,12 @@ $proyectos = Proyecto::all();
     @include('header')
 
     <div class="container">
-        <h1 class="mt-4 mb-4">Tareas</h1>
+        <h1 class="mt-4 mb-4 text-white">Tareas</h1>
 
+        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createTaskModal">
+            Crear Nueva Tarea
+        </button>
         <div class="task-list">
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createTaskModal">
-                Crear Nueva Tarea
-            </button>
             @foreach ($tareas as $task)
             <div class="task-item {{ $task->completada ? 'completed' : '' }}">
                 <div class="task-buttons">
@@ -118,7 +117,7 @@ $proyectos = Proyecto::all();
                 <div class="task-name">Proyecto: {{ $task->nombre_proyecto }}</div>
                 <div class="task-name">{{ $task->nombre }}</div>
                 <div class="task-description">{{ $task->descripcion }}</div>
-                <div class="task-due-date">Fecha límite: {{ $task->fecha_limite }}</div>
+                @if (isset($task->fecha_limite)) <div class="task-due-date">Fecha límite: {{ $task->fecha_limite }}</div> @endif
                 <div class="task-status">
                     @if ($task->completada)
                     Completada
@@ -164,13 +163,6 @@ $proyectos = Proyecto::all();
                             <label for="taskDueDate">Fecha Límite</label>
                             <input type="date" class="form-control" id="taskDueDate" name="fecha_limite">
                         </div>
-                        <div class="form-group">
-                            <label for="taskCompleted">Completada</label>
-                            <select name="completada" class="form-control" id="taskCompleted" required>
-                                <option value="1">Sí</option>
-                                <option value="0">No</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -193,6 +185,7 @@ $proyectos = Proyecto::all();
             createTaskForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 const formData = new FormData(createTaskForm);
+                formData.append('completada', 0);
                 formData.append('user_id', <?php echo $user_id ?>);
                 fetch('/tarea', {
                         method: 'POST',

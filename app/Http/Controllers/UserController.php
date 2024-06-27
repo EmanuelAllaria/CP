@@ -56,4 +56,22 @@ class UserController extends Controller
             'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
         ]);
     }
+
+    /**
+     * Handle the logout request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+        // return response()->json(['mensaje' => 'Se ha cerrado la sesión correctamente']);
+    }
 }

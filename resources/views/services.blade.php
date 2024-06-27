@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scrollbar-width: none;">
 
 <head>
     <meta charset="utf-8">
@@ -18,19 +18,18 @@
 
     <style>
         body {
-            font-family: 'figtree', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'inter', sans-serif;
+            background-color: #11121E;
             padding: 20px;
             margin-left: 200px;
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-
         .service-list {
-            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: 5px;
+            grid-row-gap: 5px;
         }
 
         .service-item {
@@ -75,12 +74,12 @@
     @include('header')
 
     <div class="container">
-        <h1 class="mt-4 mb-4">Servicios</h1>
+        <h1 class="mt-4 mb-4 text-white">Servicios</h1>
 
+        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createServiceModal">
+            Crear Nuevo Servicio
+        </button>
         <div class="service-list">
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createServiceModal">
-                Crear Nuevo Servicio
-            </button>
             @foreach ($services as $service)
             <div class="service-item">
                 <div class="service-buttons">

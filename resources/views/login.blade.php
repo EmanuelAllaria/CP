@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scrollbar-width: none;">
 
 <head>
     <meta charset="utf-8">
@@ -15,8 +15,8 @@
 
     <style>
         body {
-            font-family: 'figtree', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'inter', sans-serif;
+            background-color: #11121E;
             padding: 20px;
             margin: 0;
             height: 100vh;
@@ -28,7 +28,7 @@
         .login-form {
             max-width: 400px;
             width: 100%;
-            background-color: #fff;
+            background-color: #1D1D29;
             padding: 30px;
             border-radius: 5px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -69,24 +69,24 @@
 
 <body>
     <div class="login-form">
-        <h2 class="form-title">Iniciar Sesión</h2>
+        <h2 class="form-title text-white">Iniciar Sesión</h2>
         <form id="loginForm">
             @csrf
             <div class="form-group">
-                <label for="email">Correo Electrónico</label>
+                <label class="text-white" for="email">Correo Electrónico</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
             </div>
 
             <div class="form-group">
-                <label for="password">Contraseña</label>
+                <label class="text-white" for="password">Contraseña</label>
                 <input id="password" type="password" name="password" required autocomplete="current-password">
             </div>
 
             <div class="form-group">
-                <button type="submit">Iniciar Sesión</button>
+                <button class="text-white" type="submit">Iniciar Sesión</button>
             </div>
         </form>
-        <p class="my-0">No tenés una cuenta? <a href="/register">Registrate</a></p>
+        <p class="my-0 text-white">No tenés una cuenta? <a href="/register">Registrate</a></p>
         <a href="/register">Te olvidaste la contraseña?</a>
     </div>
 

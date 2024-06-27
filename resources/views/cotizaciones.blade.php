@@ -10,7 +10,7 @@ $clients = Contact::all();
 ?>
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scrollbar-width: none;">
 
 <head>
     <meta charset="utf-8">
@@ -29,19 +29,18 @@ $clients = Contact::all();
 
     <style>
         body {
-            font-family: 'figtree', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'inter', sans-serif;
+            background-color: #11121E;
             padding: 20px;
             margin-left: 200px;
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-
         .quote-list {
-            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: 1fr;
+            grid-column-gap: 5px;
+            grid-row-gap: 5px;
         }
 
         .quote-item {
@@ -86,12 +85,13 @@ $clients = Contact::all();
     @include('header')
 
     <div class="container">
-        <h1 class="mt-4 mb-4">Cotizaciones</h1>
+        <h1 class="mt-4 mb-4 text-white">Cotizaciones</h1>
 
+        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createQuoteModal">
+            Crear Nueva Cotización
+        </button>
+        @if (isset($cotizaciones[0]['id']))
         <div class="quote-list">
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createQuoteModal">
-                Crear Nueva Cotización
-            </button>
             @foreach ($cotizaciones as $quote)
             <div class="quote-item">
                 <div class="quote-buttons">
@@ -106,6 +106,9 @@ $clients = Contact::all();
             </div>
             @endforeach
         </div>
+        @else
+        <p class="text-white text-center">No hay cotizaciones creadas.</p>
+        @endif
     </div>
 
     <!-- Modal para la creación de nueva cotización -->
