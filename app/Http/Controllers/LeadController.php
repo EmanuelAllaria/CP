@@ -83,8 +83,13 @@ class LeadController extends Controller
 
         $lead->update(['estado' => 'convertido']);
 
-        $leads = Lead::all();
-        return view('leads', compact('leads'));
+        if (!auth()->check()) {
+            return response()->json(['mensaje' => 'Hubo un error, inicie sesion nuevamente porfavor.'], 404);
+        }
+        $user_id = auth()->id();
+
+        $leads = Lead::where('user_id', $user_id)->get();
+        return view('leads', ['leads' => $leads, 'user_id' => $user_id]);
     }
 
     public function automatizarVenta(Request $request)
