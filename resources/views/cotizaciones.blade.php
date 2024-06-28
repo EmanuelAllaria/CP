@@ -78,6 +78,22 @@ $clients = Contact::all();
         .quote-buttons button {
             margin-left: 5px;
         }
+
+        @media screen and (max-width: 999px) {
+            .quote-list {
+                grid-template-columns: 1fr;
+            }
+
+            .quote-buttons {
+                position: relative;
+                top: 0;
+                right: 0;
+            }
+
+            .quote-buttons button {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 

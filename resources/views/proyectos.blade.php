@@ -72,6 +72,22 @@
         .project-buttons button {
             margin-left: 5px;
         }
+
+        @media screen and (max-width: 999px) {
+            .project-list {
+                grid-template-columns: 1fr;
+            }
+
+            .project-buttons {
+                position: relative;
+                top: 0;
+                right: 0;
+            }
+
+            .project-buttons button {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 

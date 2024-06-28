@@ -107,6 +107,26 @@ $user_id = $data['user_id'];
                 transform: translateY(-7px);
             }
         }
+
+        
+
+    @media screen and (max-width: 999px) {
+        .stats {
+            grid-template-columns: repeat(1, 1fr);
+            grid-column-gap: 0;
+            grid-row-gap: 1em;
+        }
+
+        .data-list {
+            overflow-x: auto;
+        }
+
+        .data-list table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    }
     </style>
 </head>
 

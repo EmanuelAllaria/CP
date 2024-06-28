@@ -72,6 +72,22 @@
         .client-buttons button {
             margin-left: 5px;
         }
+
+        @media screen and (max-width: 999px) {
+            .client-list {
+                grid-template-columns: 1fr;
+            }
+
+            .client-buttons {
+                position: relative;
+                top: 0;
+                right: 0;
+            }
+
+            .client-buttons button {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 

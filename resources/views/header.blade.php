@@ -4,6 +4,13 @@ use Illuminate\Support\Facades\Request;
 ?>
 
 <style>
+    ::-webkit-scrollbar {
+        width: 5px;
+        /* Vertical scrollbar */
+        height: 5px;
+        /* Horizontal scrollbar */
+    }
+
     .sidebar-header {
         background-color: #1D1D29;
         color: #fff;
@@ -56,12 +63,36 @@ use Illuminate\Support\Facades\Request;
         font-weight: bold;
         margin: 0;
     }
+
+    @media screen and (max-width: 999px) {
+        body {
+            margin-left: 0;
+            padding: 0;
+        }
+
+        #bars {
+            display: block !important;
+            width: 100%;
+        }
+
+        .sidebar-stats,
+        .sidebar-header hr {
+            display: none;
+        }
+
+        .sidebar-header {
+            height: max-content;
+            width: 100%;
+            position: relative;
+        }
+    }
 </style>
 
 <div class="sidebar-header">
     <a href="/dashboard" style="color:#fff;">
         <h1 class="text-center" style="line-height:0.7;font-size:2em;">CP</h1>
     </a>
+    <i id="bars" onclick="openMenuMobile()" style="display:none;" class="fa-solid fa-bars"></i>
     <div class="sidebar-stats" style="margin-top: 2em;">
         <div class="sidebar-stat-item <?php echo Request::is('dashboard') ? 'active' : '' ?>">
             <h2><a href="/dashboard">Dashboard</a></h2>
@@ -101,3 +132,21 @@ use Illuminate\Support\Facades\Request;
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let click = 0;
+
+    function openMenuMobile() {
+        click++;
+        if (click > 1) {
+            click = 0;
+        }
+        if (click === 1) {
+            $('.sidebar-stats').show();
+            $('hr').show();
+        } else {
+            $('.sidebar-stats').hide();
+            $('hr').hide();
+        }
+    }
+</script>

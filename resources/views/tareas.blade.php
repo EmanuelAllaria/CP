@@ -90,6 +90,22 @@ $proyectos = Proyecto::all();
         .task-buttons button {
             margin-left: 5px;
         }
+
+        @media screen and (max-width: 999px) {
+            .task-list {
+                grid-template-columns: 1fr;
+            }
+
+            .task-buttons {
+                position: relative;
+                top: 0;
+                right: 0;
+            }
+
+            .task-buttons button {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 

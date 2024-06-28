@@ -62,6 +62,19 @@ $clients = Contact::all();
         .status-icon.red {
             color: red;
         }
+
+        @media screen and (max-width: 999px) {
+
+            .table-container-invoice {
+                overflow-x: auto;
+            }
+
+            .table-container-invoice table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
     </style>
 </head>
 
@@ -73,7 +86,7 @@ $clients = Contact::all();
         <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#createInvoiceModal">
             Crear Nueva Factura
         </button>
-        <div>
+        <div class="table-container-invoice">
             <table class="table">
                 <thead>
                     <tr>

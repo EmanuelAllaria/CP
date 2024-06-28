@@ -16,6 +16,10 @@ $clientes = Contact::all();
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Estilos adicionales -->
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/15fbf0e0d4.js" crossorigin="anonymous"></script>
+
     <style>
         body {
             font-family: 'inter', sans-serif;
@@ -50,6 +54,12 @@ $clientes = Contact::all();
 
         .lead-card .card-text {
             margin-bottom: 10px;
+        }
+
+        @media screen and (max-width: 999px) {
+            .lead-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>

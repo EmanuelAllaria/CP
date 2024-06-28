@@ -67,6 +67,22 @@
         .service-buttons button {
             margin-left: 5px;
         }
+
+        @media screen and (max-width: 999px) {
+            .service-list {
+                grid-template-columns: 1fr;
+            }
+
+            .service-buttons {
+                position: relative;
+                top: 0;
+                right: 0;
+            }
+
+            .service-buttons button {
+                margin-left: 0;
+            }
+        }
     </style>
 </head>
 

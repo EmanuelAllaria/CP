@@ -117,7 +117,8 @@ class DashboardController extends Controller
                     ->whereMonth('created_at', $hoy->month);
             })
             ->where(function ($query) use ($hoy) {
-                $query->whereDate('fecha_limite', '>', $hoy->toDateString());
+                $query->whereDate('fecha_limite', '>', $hoy->toDateString())
+                    ->orWhereNull('fecha_limite');
             })
             ->where('completada', 1)
             ->count();
@@ -128,8 +129,9 @@ class DashboardController extends Controller
                     ->whereMonth('created_at', $startDateMesPasado->month);
             })
             ->where(function ($query) use ($startDateMesPasado, $endDateMesPasado) {
-                $query->whereDate('fecha_limite', '>', $startDateMesPasado->toDateString());
-                $query->whereDate('fecha_limite', '<', $endDateMesPasado->toDateString());
+                $query->whereDate('fecha_limite', '>', $startDateMesPasado->toDateString())
+                    ->whereDate('fecha_limite', '<', $endDateMesPasado->toDateString())
+                    ->orWhereNull('fecha_limite');
             })
             ->where('completada', 1)
             ->count();
@@ -146,8 +148,9 @@ class DashboardController extends Controller
                 $query->whereDate('created_at', '>', $startDateMesPasado->format('Y-m-d'));
             })
             ->where(function ($query) use ($startDate, $startDateMesPasado) {
-                $query->whereDate('fecha_limite', '>', $startDateMesPasado->format('Y-m-d'));
-                $query->whereDate('fecha_limite', '<', $startDate->format('Y-m-d'));
+                $query->whereDate('fecha_limite', '>', $startDateMesPasado->format('Y-m-d'))
+                    ->whereDate('fecha_limite', '<', $startDate->format('Y-m-d'))
+                    ->orWhereNull('fecha_limite');
             })
             ->where('completada', 0)
             ->count();
@@ -157,7 +160,8 @@ class DashboardController extends Controller
                 $query->whereDate('created_at', '<=', $hoy->format('Y-m-d'));
             })
             ->where(function ($query) use ($hoy) {
-                $query->whereDate('fecha_limite', '>', $hoy->format('Y-m-d'));
+                $query->whereDate('fecha_limite', '>', $hoy->format('Y-m-d'))
+                    ->orWhereNull('fecha_limite');
             })
             ->where('completada', 0)
             ->count();
